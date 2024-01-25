@@ -1,13 +1,15 @@
-// AddWorkout.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, DatePickerAndroid, Pressable } from 'react-native';
+import { View, Text, Alert, Pressable, TextInput } from 'react-native';
+import styles from '../../styles/AddWorkoutStyles';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-const AddWorkout = (navigation) => {
+const AddWorkout = () => {
   const [workouts, setWorkouts] = useState([]);
   const [sportType, setSportType] = useState('');
   const [distance, setDistance] = useState('');
   const [duration, setDuration] = useState('');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const addWorkout = () => {
     if (isNaN(parseFloat(distance)) || isNaN(parseFloat(duration)) || distance < 0 || duration < 0) {
@@ -26,51 +28,81 @@ const AddWorkout = (navigation) => {
     setSportType('');
     setDistance('');
     setDuration('');
-    setDate('');
+    setDate(new Date());
   };
 
-  const showDatePicker = async () => {
-    try {
-      const { action, year, month, day } = await DatePickerAndroid.open({
-        date: new Date(),
-      });
-
-      if (action !== DatePickerAndroid.dismissedAction) {
-        const selectedDate = `${year}-${month + 1}-${day}`;
-        setDate(selectedDate);
-      }
-    } catch ({ code, message }) {
-      console.warn('Cannot open date picker', message);
-    }
+  const formatDate = (selectedDate) => {
+    const day = selectedDate.getDate();
+    const month = selectedDate.getMonth() + 1; // Months are 0-based
+    const year = selectedDate.getFullYear();
+  
+    return `${day}/${month}/${year}`;
   };
 
   return (
-    <View>
-      <Text>Sport Type:</Text>
-      <TextInput
-        value={sportType}
-        onChangeText={setSportType}
-      />
+    <View style={styles.container}>
+      <Text style={styles.label}>Sport Type:</Text>
+      <View style={styles.sportTypeButtonsContainer}>
+        <Pressable
+          style={({ pressed }) => [styles.sportTypeButton, { backgroundColor: pressed ? '#888' : '#eee' }]}
+          onPress={() => setSportType('skiing')}
+        >
+          <Text style={styles.buttonText}>Skiing</Text>
+        </Pressable>
 
-      <Text>Distance (in km):</Text>
+        <Pressable
+          style={({ pressed }) => [styles.sportTypeButton, { backgroundColor: pressed ? '#888' : '#eee' }]}
+          onPress={() => setSportType('running')}
+        >
+          <Text style={styles.buttonText}>Running</Text>
+        </Pressable>
+
+        <Pressable
+          style={({ pressed }) => [styles.sportTypeButton, { backgroundColor: pressed ? '#888' : '#eee' }]}
+          onPress={() => setSportType('swimming')}
+        >
+          <Text style={styles.buttonText}>Swimming</Text>
+        </Pressable>
+      </View>
+
+      <Text style={styles.label}>Distance (in km):</Text>
       <TextInput
+        style={styles.input}
         value={distance}
         onChangeText={setDistance}
         keyboardType="numeric"
       />
 
-      <Text>Duration (in minutes):</Text>
+      <Text style={styles.label}>Duration (in minutes):</Text>
       <TextInput
+        style={styles.input}
         value={duration}
         onChangeText={setDuration}
         keyboardType="numeric"
       />
 
-      <Text>Date:</Text>
-      <Pressable title="Pick a Date" onPress={showDatePicker} />
-      {date && <Text>Selected Date: {date}</Text>}
+      <View style={styles.datePickerContainer}>
+  <Pressable style={styles.datePickerButton} onPress={() => setShowDatePicker(true)}>
+    <Text style={styles.buttonText}>Pick a Date</Text>
+  </Pressable>
+  <Text>Selected Date: {date ? formatDate(date) : ''}</Text>
+</View>
 
-      <Pressable title="Add Workout" onPress={addWorkout} />
+{showDatePicker && (
+  <DateTimePicker
+    onChange={(event, newDate) => {
+      setShowDatePicker(false);
+      if (event.type === 'set' && newDate) {
+        setDate(newDate instanceof Date ? newDate : new Date(newDate));
+      }
+    }}
+    value={date}
+  />
+)}
+
+      <Pressable style={styles.addButton} onPress={addWorkout}>
+        <Text style={styles.buttonText}>Add Workout</Text>
+      </Pressable>
     </View>
   );
 };
