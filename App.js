@@ -1,20 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer} from '@react-navigation/native';
+import AddWorkout from './components/screens/AddWorkout';
+import WorkoutList from './components/screens/WorkoutList';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+const Drawer = createDrawerNavigator();
 
-export default function App() {
+export default function App(props) {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="AddWorkout">
+        <Drawer.Screen name="AddWorkout" component={AddWorkout} options={{ title: 'Add Workout' }} />
+        <Drawer.Screen name="WorkoutList" component={WorkoutList} options={{ title: 'Workout List' }} />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
