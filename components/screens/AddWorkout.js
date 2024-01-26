@@ -1,10 +1,12 @@
 // AddWorkout.js
 import React, { useState } from 'react';
-import { View, Text, Alert, Pressable, TextInput } from 'react-native';
+import { View, Text, Alert, Pressable, TextInput, Modal, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import WorkoutList from '../functions/WorkoutList'; // Make sure to import WorkoutList
 import styles from '../../styles/AddWorkoutStyles';
 import { useWorkoutContext } from '../functions/WorkoutContext';
+import { MaterialIcons, Ionicons } from '@expo/vector-icons';
+
 
 const AddWorkout = () => {
   const { addWorkout } = useWorkoutContext();
@@ -13,6 +15,45 @@ const AddWorkout = () => {
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [unitSystem, setUnitSystem] = useState('kilometers'); // Default to kilometers
+
+
+  const openSettingsModal = () => {
+    setShowSettingsModal(true);
+  };
+
+  const closeSettingsModal = () => {
+    setShowSettingsModal(false);
+  };
+  const renderSettingsModal = () => (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
+        <Text style={{ fontSize: 18, marginBottom: 10 }}>Select Unit System</Text>
+        
+        <TouchableOpacity onPress={() => handleUnitChange('kilometers')}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+            <Text style={{ marginRight: 10 }}>Kilometers</Text>
+            {unitSystem === 'kilometers' && <Ionicons name="radio-button-on" size={20} color="blue" />}
+            {unitSystem !== 'kilometers' && <Ionicons name="radio-button-off" size={20} color="blue" />}
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => handleUnitChange('miles')}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ marginRight: 10 }}>Miles</Text>
+            {unitSystem === 'miles' && <Ionicons name="radio-button-on" size={20} color="blue" />}
+            {unitSystem !== 'miles' && <Ionicons name="radio-button-off" size={20} color="blue" />}
+          </View>
+        </TouchableOpacity>
+
+        <Pressable onPress={closeSettingsModal} style={{ marginTop: 20 }}>
+          <Text style={{ color: 'blue', fontSize: 16 }}>Close</Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+
 
   const saveWorkout = () => {
     if (isNaN(parseFloat(distance)) || isNaN(parseFloat(duration)) || distance < 0 || duration < 0) {
@@ -51,6 +92,20 @@ const AddWorkout = () => {
 
   return (
     <View style={styles.container}>
+      <Pressable onPress={openSettingsModal} style={styles.settingsIcon}>
+      <MaterialIcons name="settings" size={24} color="black" />
+            </Pressable>
+
+      {/* Settings Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showSettingsModal}
+        onRequestClose={closeSettingsModal}
+      >
+        {renderSettingsModal()}
+      </Modal>
+
       <Text style={styles.label}>Sport Type:</Text>
       <View style={styles.sportTypeButtonsContainer}>
         <Pressable
