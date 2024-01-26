@@ -17,9 +17,12 @@ export const WorkoutProvider = ({ children }) => {
   const addWorkout = (newWorkout) => {
     setWorkouts((prevWorkouts) => [...prevWorkouts, newWorkout]);
   };
-
+  const removeWorkout = (selectedWorkout) => {
+    const updatedWorkouts = workouts.filter((workout) => workout !== selectedWorkout);
+    setWorkouts(updatedWorkouts);
+  };
   return (
-    <WorkoutContext.Provider value={{ workouts, addWorkout }}>
+    <WorkoutContext.Provider value={{ workouts, addWorkout, removeWorkout }}>
       {children}
     </WorkoutContext.Provider>
   );
