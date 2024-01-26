@@ -16,7 +16,7 @@ const AddWorkout = () => {
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
-  const [unitSystem, setUnitSystem] = useState('kilometers'); // Default to kilometers
+  const [unitSystem, setUnitSystem] = useState('kilometers'); 
 
 
   const openSettingsModal = () => {
@@ -109,21 +109,30 @@ const AddWorkout = () => {
       <Text style={styles.label}>Sport Type:</Text>
       <View style={styles.sportTypeButtonsContainer}>
         <Pressable
-          style={({ pressed }) => [styles.sportTypeButton, { backgroundColor: pressed ? '#888' : '#eee' }]}
+          style={({ pressed }) => [
+            styles.sportTypeButton,
+            { backgroundColor: sportType === 'skiing' ? 'blue' : pressed ? 'blue' : '#eee' },
+          ]}
           onPress={() => setSportType('skiing')}
         >
           <Text style={styles.buttonText}>Skiing</Text>
         </Pressable>
 
         <Pressable
-          style={({ pressed }) => [styles.sportTypeButton, { backgroundColor: pressed ? '#888' : '#eee' }]}
+          style={({ pressed }) => [
+            styles.sportTypeButton,
+            { backgroundColor: sportType === 'running' ? 'blue' : pressed ? '#888' : '#eee' },
+          ]}
           onPress={() => setSportType('running')}
         >
           <Text style={styles.buttonText}>Running</Text>
         </Pressable>
 
         <Pressable
-          style={({ pressed }) => [styles.sportTypeButton, { backgroundColor: pressed ? '#888' : '#eee' }]}
+          style={({ pressed }) => [
+            styles.sportTypeButton,
+            { backgroundColor: sportType === 'swimming' ? 'blue' : pressed ? '#888' : '#eee' },
+          ]}
           onPress={() => setSportType('swimming')}
         >
           <Text style={styles.buttonText}>Swimming</Text>

@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue', // Default background color
   }, 
   selectedSportTypeButton: {
-    backgroundColor: '#aaa', // Background color for selected button
+    backgroundColor: 'blue', // Background color for selected button
   },
   workoutItem: {
     backgroundColor: '#f0f0f0',
