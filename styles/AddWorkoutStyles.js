@@ -47,7 +47,27 @@ const styles = StyleSheet.create({
   }, 
   selectedSportTypeButton: {
     backgroundColor: '#aaa', // Background color for selected button
-  }
+  },
+  workoutItem: {
+    backgroundColor: '#f0f0f0',
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  workoutDetails: {
+    flex: 1, // Take remaining space
+    marginRight: 10, // Add some margin between details and the remove button
+  },
+  workoutText: {
+    fontSize: 16, // Adjust font size for better readability
+  },
+  removeButton: {
+    color: 'red',
+    fontSize: 16, // Adjust font size for better readability
+  },
 });
 
 export default styles;
