@@ -1,14 +1,14 @@
-// AddWorkout.js
 import React, { useState } from 'react';
 import { View, Text, Alert, Pressable, TextInput, Modal, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import WorkoutList from '../functions/WorkoutList'; // Make sure to import WorkoutList
+import WorkoutList from '../functions/WorkoutList'; 
 import styles from '../../styles/AddWorkoutStyles';
 import { useWorkoutContext } from '../functions/WorkoutContext';
 import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import SettingsScreen from './Settings';
 
-const AddWorkout = () => {
+
+const AddWorkout = ({navigation}) => {
   const { addWorkout, unit, setUnit } = useWorkoutContext();
   const [sportType, setSportType] = useState('');
   const [distance, setDistance] = useState('');
@@ -73,7 +73,6 @@ const AddWorkout = () => {
 
     return `${day}/${month}/${year}`;
   };
-  const formattedDistance = unit === 'kilometers' ? `${distance} km` : `${distance} miles`;
 
   return (
     <View style={styles.container}>
@@ -158,7 +157,7 @@ const AddWorkout = () => {
         <Text style={styles.buttonText}>Add Workout</Text>
       </Pressable>
 
-      <WorkoutList/> 
+      <WorkoutList navigation={navigation} renderFirstFive={true} showViewAllButton={true} />
     </View>
   );
 };

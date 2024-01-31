@@ -6,7 +6,7 @@ import { View } from 'react-native';
 const WorkoutListScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <WorkoutList navigation={navigation} />
+      <WorkoutList navigation={navigation} renderFirstFive={false} showViewAllButton={false}/>
     </View>
   );
 };

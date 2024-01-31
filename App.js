@@ -4,7 +4,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import WorkoutListScreen from './components/screens/WorkoutListScreen';
 import { WorkoutProvider } from './components/functions/WorkoutContext';
 import SettingsScreen from './components/screens/Settings';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Drawer = createDrawerNavigator();
 
 export default function App() {
