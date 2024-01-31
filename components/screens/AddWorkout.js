@@ -44,6 +44,10 @@ const AddWorkout = ({navigation}) => {
       Alert.alert('Error', 'Distance and duration must be numeric values and non-negative');
       return;
     }
+    if (!sportType) {
+      Alert.alert('Error', 'Please select a workout type');
+      return;
+    }
 
     const newWorkout = {
       sportType,
@@ -98,7 +102,7 @@ const AddWorkout = ({navigation}) => {
         <Pressable
           style={({ pressed }) => [
             styles.sportTypeButton,
-            { backgroundColor: sportType === 'running' ? 'lightblue' : pressed ? '#888' : '#eee' },
+            { backgroundColor: sportType === 'running' ? 'lightblue' : pressed ? '888' : '#eee' },
           ]}
           onPress={() => setSportType('running')}
         >
@@ -108,7 +112,7 @@ const AddWorkout = ({navigation}) => {
         <Pressable
           style={({ pressed }) => [
             styles.sportTypeButton,
-            { backgroundColor: sportType === 'swimming' ? 'lightblue' : pressed ? '#888' : '#eee' },
+            { backgroundColor: sportType === 'swimming' ? 'lightblue' : pressed ? '888' : '#eee' },
           ]}
           onPress={() => setSportType('swimming')}
         >
@@ -132,24 +136,25 @@ const AddWorkout = ({navigation}) => {
         keyboardType="numeric"
       />
 
-      <View style={styles.datePickerContainer}>
-        <Pressable style={styles.datePickerButton} onPress={() => setShowDatePicker(true)}>
-          <Text style={styles.buttonText}>Pick a Date</Text>
-        </Pressable>
-        <Text>Selected Date: {date ? formatDate(date) : ''}</Text>
-      </View>
+<TouchableOpacity
+        style={styles.datePickerContainer}
+        onPress={() => setShowDatePicker(true)}
+      >
+        <Ionicons name="calendar" size={24} color="black" />
+      </TouchableOpacity>
+      <Text>Selected Date: {date ? formatDate(date) : 'Pick a Date'}</Text>
 
       {showDatePicker && (
         <DateTimePicker
-          onChange={(event, newDate) => {
+          value={date}
+          mode="date"
+          display="default"
+          onChange={(event, selectedDate) => {
             setShowDatePicker(false);
-            if (event.type === 'set' && newDate) {
-              // Ensure newDate is a valid Date object
-              const selectedDate = newDate instanceof Date ? newDate : new Date(newDate);
+            if (selectedDate) {
               setDate(selectedDate);
             }
           }}
-          value={date}
         />
       )}
 
@@ -157,7 +162,7 @@ const AddWorkout = ({navigation}) => {
         <Text style={styles.buttonText}>Add Workout</Text>
       </Pressable>
 
-      <WorkoutList navigation={navigation} renderFirstFive={true} showViewAllButton={true} />
+      <WorkoutList renderFirstFive={true} showViewAllButton={true} />
     </View>
   );
 };

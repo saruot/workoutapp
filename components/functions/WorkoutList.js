@@ -10,7 +10,7 @@ const WorkoutList = ({navigation, showViewAllButton, renderFirstFive}) => {
   };
   
   const renderWorkouts = () => {
-    const workoutsToRender = renderFirstFive ? workouts.slice(0, 5) : workouts;
+    const workoutsToRender = renderFirstFive ? workouts.slice(0, 3) : workouts;
     
 
     return workoutsToRender.map((workout, index) => (

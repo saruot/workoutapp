@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   addButton: {
     backgroundColor: 'lightblue',
     padding: 10,
+    marginTop: 10,
     borderRadius: 5,
     alignItems: 'center',
   }, sportTypeButtonsContainer: {

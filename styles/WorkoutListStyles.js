@@ -1,4 +1,5 @@
 // WorkoutListStyles.js
+import { Center } from 'native-base';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -27,6 +28,33 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 16,
   },
+  totalDistancesContainer: {
+    marginTop: 20,
+    marginBottom: 20,
+    padding: 10,
+    backgroundColor: 'lightblue',
+    borderRadius: 8,
+  },
+
+  totalDistancesHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    alignSelf: 'center'
+  },
+
+  totalDistancesText: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  sportIconsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+
+  },
+  sportIconBox: {
+    alignItems: 'center'
+  }
 });
 
 export default styles;
