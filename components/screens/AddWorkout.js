@@ -162,7 +162,7 @@ const AddWorkout = ({navigation}) => {
         <Text style={styles.buttonText}>Add Workout</Text>
       </Pressable>
 
-      <WorkoutList renderFirstFive={true} showViewAllButton={true} />
+      <WorkoutList navigation={navigation} renderFirstFive={true} showViewAllButton={true} />
     </View>
   );
 };
