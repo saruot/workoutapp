@@ -4,11 +4,7 @@ import styles from '../../styles/WorkoutListStyles';
 import { useWorkoutContext } from '../functions/WorkoutContext';
 
 const WorkoutList = () => {
-  const { workouts, removeWorkout } = useWorkoutContext(); // Destructure setWorkouts from the context
-
-
-
-  
+  const { workouts, removeWorkout, unit } = useWorkoutContext(); // Destructure setWorkouts from the context
 
   return (
     <ScrollView>
@@ -16,7 +12,7 @@ const WorkoutList = () => {
         <View key={index} style={styles.workoutItem}>
           <View style={styles.workoutDetails}>
             <Text style={[styles.workoutText, { fontWeight: 'bold' }]}>{`Sport: ${workout.sportType}`}</Text>
-            <Text style={styles.workoutText}>{`Distance: ${workout.distance.toFixed(2)} km`}</Text>
+            <Text style={styles.workoutText}>{`Distance: ${getFormattedDistance(workout.distance, unit)} ${unit}`}</Text>
             <Text style={styles.workoutText}>{`Duration: ${workout.duration.toFixed(2)} minutes`}</Text>
             <Text style={styles.workoutText}>{`Date: ${formatDate(workout.date)}`}</Text>
           </View>
@@ -27,6 +23,11 @@ const WorkoutList = () => {
       ))}
     </ScrollView>
   );
+};
+
+const getFormattedDistance = (distance, selectedUnit) => {
+  // Convert distance based on the selected unit
+  return selectedUnit === 'miles' ? (distance * 0.621371).toFixed(2) : distance.toFixed(2);
 };
 
 const formatDate = (selectedDate) => {

@@ -1,4 +1,3 @@
-// WorkoutContext.js
 import React, { createContext, useContext, useState } from 'react';
 
 const WorkoutContext = createContext();
@@ -13,7 +12,7 @@ export const useWorkoutContext = () => {
 
 export const WorkoutProvider = ({ children }) => {
   const [workouts, setWorkouts] = useState([]);
-
+  const [unit, setUnit] = useState('kilometers');
   const addWorkout = (newWorkout) => {
     setWorkouts((prevWorkouts) => [...prevWorkouts, newWorkout]);
   };
@@ -22,7 +21,7 @@ export const WorkoutProvider = ({ children }) => {
     setWorkouts(updatedWorkouts);
   };
   return (
-    <WorkoutContext.Provider value={{ workouts, addWorkout, removeWorkout }}>
+    <WorkoutContext.Provider value={{ workouts, addWorkout, removeWorkout, unit, setUnit }}>
       {children}
     </WorkoutContext.Provider>
   );

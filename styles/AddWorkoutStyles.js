@@ -4,6 +4,12 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
   },
+  sportTypeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between', // Align items with space between them
+    marginBottom: 20,
+  },
   label: {
     fontSize: 16,
     marginBottom: 5,
@@ -28,7 +34,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   addButton: {
-    backgroundColor: 'blue',
+    backgroundColor: 'lightblue',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
@@ -43,10 +49,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',
-    backgroundColor: 'blue', // Default background color
+    backgroundColor: 'lightblue',
   }, 
   selectedSportTypeButton: {
-    backgroundColor: 'blue', // Background color for selected button
+    backgroundColor: 'lightblue', // Background color for selected button
   },
   workoutItem: {
     backgroundColor: '#f0f0f0',
@@ -58,15 +64,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   workoutDetails: {
-    flex: 1, // Take remaining space
-    marginRight: 10, // Add some margin between details and the remove button
+    flex: 1, 
+    marginRight: 10, 
   },
   workoutText: {
-    fontSize: 16, // Adjust font size for better readability
+    fontSize: 16, 
   },
   removeButton: {
     color: 'red',
-    fontSize: 16, // Adjust font size for better readability
+    fontSize: 16, 
+  }, 
+  rowContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  label: {
+    fontSize: 18,
+    marginRight: 8,
+  },
+  settingsIcon: {
+    padding: 8,
+    alignSelf: 'flex-end'
   },
 });
 

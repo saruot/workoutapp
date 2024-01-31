@@ -6,18 +6,19 @@ import WorkoutList from '../functions/WorkoutList'; // Make sure to import Worko
 import styles from '../../styles/AddWorkoutStyles';
 import { useWorkoutContext } from '../functions/WorkoutContext';
 import { MaterialIcons, Ionicons } from '@expo/vector-icons';
-
+import SettingsScreen from './Settings';
 
 const AddWorkout = () => {
-  const { addWorkout } = useWorkoutContext();
+  const { addWorkout, unit, setUnit } = useWorkoutContext();
   const [sportType, setSportType] = useState('');
   const [distance, setDistance] = useState('');
   const [duration, setDuration] = useState('');
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
-  const [unitSystem, setUnitSystem] = useState('kilometers'); 
 
+
+  const convertedDistance = unit === 'miles' ? distance / 0.621371 : distance;
 
   const openSettingsModal = () => {
     setShowSettingsModal(true);
@@ -26,34 +27,17 @@ const AddWorkout = () => {
   const closeSettingsModal = () => {
     setShowSettingsModal(false);
   };
+
   const renderSettingsModal = () => (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
-        <Text style={{ fontSize: 18, marginBottom: 10 }}>Select Unit System</Text>
-        
-        <TouchableOpacity onPress={() => handleUnitChange('kilometers')}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-            <Text style={{ marginRight: 10 }}>Kilometers</Text>
-            {unitSystem === 'kilometers' && <Ionicons name="radio-button-on" size={20} color="blue" />}
-            {unitSystem !== 'kilometers' && <Ionicons name="radio-button-off" size={20} color="blue" />}
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => handleUnitChange('miles')}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{ marginRight: 10 }}>Miles</Text>
-            {unitSystem === 'miles' && <Ionicons name="radio-button-on" size={20} color="blue" />}
-            {unitSystem !== 'miles' && <Ionicons name="radio-button-off" size={20} color="blue" />}
-          </View>
-        </TouchableOpacity>
-
-        <Pressable onPress={closeSettingsModal} style={{ marginTop: 20 }}>
-          <Text style={{ color: 'blue', fontSize: 16 }}>Close</Text>
-        </Pressable>
-      </View>
-    </View>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={showSettingsModal}
+      onRequestClose={closeSettingsModal}
+    >
+      <SettingsScreen closeModal={closeSettingsModal} showCloseButton={true} />
+    </Modal>
   );
-
 
   const saveWorkout = () => {
     if (isNaN(parseFloat(distance)) || isNaN(parseFloat(duration)) || distance < 0 || duration < 0) {
@@ -63,7 +47,7 @@ const AddWorkout = () => {
 
     const newWorkout = {
       sportType,
-      distance: parseFloat(distance),
+      distance: parseFloat(convertedDistance),
       duration: parseFloat(duration),
       date,
     };
@@ -89,29 +73,23 @@ const AddWorkout = () => {
 
     return `${day}/${month}/${year}`;
   };
+  const formattedDistance = unit === 'kilometers' ? `${distance} km` : `${distance} miles`;
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={openSettingsModal} style={styles.settingsIcon}>
-      <MaterialIcons name="settings" size={24} color="black" />
-            </Pressable>
+      <View style={styles.sportTypeContainer}>
+            <Text style={styles.label}>Sport Type:</Text>
+      <TouchableOpacity onPress={openSettingsModal} style={styles.settingsIcon}>
+        <MaterialIcons name="settings" size={24} color="black" />
+      </TouchableOpacity>
+      {renderSettingsModal()}
+      </View>
 
-      {/* Settings Modal */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={showSettingsModal}
-        onRequestClose={closeSettingsModal}
-      >
-        {renderSettingsModal()}
-      </Modal>
-
-      <Text style={styles.label}>Sport Type:</Text>
       <View style={styles.sportTypeButtonsContainer}>
         <Pressable
           style={({ pressed }) => [
             styles.sportTypeButton,
-            { backgroundColor: sportType === 'skiing' ? 'blue' : pressed ? 'blue' : '#eee' },
+            { backgroundColor: sportType === 'skiing' ? 'lightblue' : pressed ? '888' : '#eee' },
           ]}
           onPress={() => setSportType('skiing')}
         >
@@ -121,7 +99,7 @@ const AddWorkout = () => {
         <Pressable
           style={({ pressed }) => [
             styles.sportTypeButton,
-            { backgroundColor: sportType === 'running' ? 'blue' : pressed ? '#888' : '#eee' },
+            { backgroundColor: sportType === 'running' ? 'lightblue' : pressed ? '#888' : '#eee' },
           ]}
           onPress={() => setSportType('running')}
         >
@@ -131,7 +109,7 @@ const AddWorkout = () => {
         <Pressable
           style={({ pressed }) => [
             styles.sportTypeButton,
-            { backgroundColor: sportType === 'swimming' ? 'blue' : pressed ? '#888' : '#eee' },
+            { backgroundColor: sportType === 'swimming' ? 'lightblue' : pressed ? '#888' : '#eee' },
           ]}
           onPress={() => setSportType('swimming')}
         >
@@ -139,7 +117,7 @@ const AddWorkout = () => {
         </Pressable>
       </View>
 
-      <Text style={styles.label}>Distance (in km):</Text>
+      <Text style={styles.label}>Distance (in {unit}):</Text>
       <TextInput
         style={styles.input}
         value={distance}
