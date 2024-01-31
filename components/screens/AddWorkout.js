@@ -79,6 +79,7 @@ const AddWorkout = ({navigation}) => {
   };
 
   return (
+    <View>
     <View style={styles.container}>
       <View style={styles.sportTypeContainer}>
             <Text style={styles.label}>Sport Type:</Text>
@@ -161,7 +162,8 @@ const AddWorkout = ({navigation}) => {
       <Pressable style={styles.addButton} onPress={saveWorkout}>
         <Text style={styles.buttonText}>Add Workout</Text>
       </Pressable>
-
+      </View>
+      <Text style={styles.labelCentered}>Recent workouts</Text>
       <WorkoutList navigation={navigation} renderFirstFive={true} showViewAllButton={true} />
     </View>
   );

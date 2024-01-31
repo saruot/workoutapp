@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   addButton: {
     backgroundColor: 'lightblue',
     padding: 10,
-    marginTop: 10,
+    marginTop: 15,
     borderRadius: 5,
     alignItems: 'center',
   }, sportTypeButtonsContainer: {
@@ -84,10 +84,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginRight: 8,
   },
+  labelCentered: {
+    fontSize: 18,
+    marginRight: 8,
+    alignSelf: 'center'
+  },
   settingsIcon: {
     padding: 8,
     alignSelf: 'flex-end'
   },
+  
 });
 
 export default styles;

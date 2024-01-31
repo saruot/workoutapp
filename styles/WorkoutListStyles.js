@@ -54,7 +54,13 @@ const styles = StyleSheet.create({
   },
   sportIconBox: {
     alignItems: 'center'
-  }
+  },
+  viewAllButtonContainer: {
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  scrollViewStyle: {
+    }
 });
 
 export default styles;
