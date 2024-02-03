@@ -1,4 +1,3 @@
-// WorkoutListScreen.js
 import React from 'react';
 import WorkoutList from '../functions/WorkoutList';
 import styles from '../../styles/WorkoutListStyles';
@@ -26,6 +25,20 @@ const WorkoutListScreen = ({ navigation }) => {
     return distancesBySport;
   };
 
+  const getSportIconName = (sportType) => {
+    // Map your sport types to FontAwesome5 icons
+    switch (sportType) {
+      case 'skiing':
+        return 'skiing';
+      case 'running':
+        return 'running';
+      case 'swimming':
+        return 'swimmer';
+      default:
+        return 'question'; // Default icon for unknown sport types
+    }
+  };
+
   const totalDistancesBySport = getTotalDistancesBySport();
   
   return (
@@ -48,19 +61,6 @@ const WorkoutListScreen = ({ navigation }) => {
   );
 };
 
-const getSportIconName = (sportType) => {
-  // Map your sport types to FontAwesome5 icons
-  switch (sportType) {
-    case 'skiing':
-      return 'skiing';
-    case 'running':
-      return 'running';
-    case 'swimming':
-      return 'swimmer';
-    // Add more cases for other sport types as needed
-    default:
-      return 'question'; // Default icon for unknown sport types
-  }
-};
+
 
 export default WorkoutListScreen;

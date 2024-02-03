@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   sportTypeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', // Align items with space between them
+    justifyContent: 'space-between',
     marginBottom: 20,
   },
   label: {

@@ -11,7 +11,11 @@ const WorkoutList = ({ navigation, showViewAllButton, renderFirstFive }) => {
   };
 
   const renderWorkouts = () => {
+    // renderFirstFive should be renamed to renderFirstTwo, but I'm too lazy to update all the instances where this is used
     const workoutsToRender = renderFirstFive ? workouts.slice(-2) : workouts;
+    /* Also was supposed to be five but I couldn't get the scrolling to work on 
+    the AddWorkout screen for the list so I just gave up on it and used
+    the most recent two instead  */
 
     return workoutsToRender.map((workout, index) => (
       <View key={index} style={styles.workoutItem}>

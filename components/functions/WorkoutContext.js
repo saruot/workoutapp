@@ -23,10 +23,13 @@ export const WorkoutProvider = ({ children }) => {
     duration: 45, // in minutes
     date: new Date(),
   },]);
+
   const [unit, setUnit] = useState('kilometers');
+
   const addWorkout = (newWorkout) => {
     setWorkouts((prevWorkouts) => [...prevWorkouts, newWorkout]);
   };
+  
   const removeWorkout = (selectedWorkout) => {
     const updatedWorkouts = workouts.filter((workout) => workout !== selectedWorkout);
     setWorkouts(updatedWorkouts);

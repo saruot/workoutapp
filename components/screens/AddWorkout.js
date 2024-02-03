@@ -28,6 +28,7 @@ const AddWorkout = ({navigation}) => {
     setShowSettingsModal(false);
   };
 
+  // Used for rendering the modal when settings opened on AddWorkout screen.
   const renderSettingsModal = () => (
     <Modal
       animationType="slide"
@@ -63,7 +64,6 @@ const AddWorkout = ({navigation}) => {
     setDuration('');
     setDate(new Date());
 
-    // Show a popup
     Alert.alert('Success', 'Workout added successfully!');
   };
 
